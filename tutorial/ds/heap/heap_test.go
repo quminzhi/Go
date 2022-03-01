@@ -61,3 +61,20 @@ func TestPushOpt(t *testing.T) {
 		}
 	}
 }
+
+func TestPopOpt(t *testing.T) {
+	vec := []int{5, 3, 7, 11, 2}
+	var h Heap
+	h.InitHeap(vec)
+	h.Push(1)
+	h.Push(2)
+	h.Pop()
+	if top, _ := h.Top(); top != 2 {
+		t.Fatalf("expected output to be 2, but the output is %d", top)
+	}
+	h.Pop()
+	h.Pop()
+	if top, _ := h.Top(); top != 3 {
+		t.Fatalf("expected output to be 3, but the output is %d", top)
+	}
+}

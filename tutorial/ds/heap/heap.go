@@ -56,14 +56,14 @@ func (h *Heap) InitHeap(_vec []int) error {
 }
 
 func (h Heap) Empty() (bool, error) {
-	if ret, err := h.Size(); err == nil {
-		return ret == 0, nil
+	if size, err := h.Size(); err == nil {
+		return size == 0, nil
 	}
 	return false, errors.New("fail to get size of heap")
 }
 
 func (h Heap) Size() (int, error) {
-	return len(h.vec), nil
+	return h.size, nil
 }
 
 func (h Heap) Top() (int, error) {
@@ -104,6 +104,51 @@ func (h *Heap) Push(val int) error {
 	}
 }
 
-func Pop() (int, error) {
-	return 0, nil
+func (h *Heap) Pop() (int, error) {
+	empty, _ := h.Empty()
+	if empty {
+		return -1, errors.New("tried to pop from an empty heap")
+	}
+
+	// corner case: only one left in the heap
+	if size, _ := h.Size(); size == 1 {
+		var popped int = h.vec[0]
+		h.size--
+		return popped, nil
+	}
+
+	// if it is not the last one
+	popped := h.vec[0]
+	h.vec[0] = h.vec[h.size-1]
+	h.size--
+	// update: sift down
+	root, left, right := 0, 0, 0
+	for {
+		left = 2*root + 1
+		right = 2*root + 2
+		if (left >= h.size) && (right >= h.size) {
+			break
+		}
+		if (right >= h.size) && (h.vec[left] < h.vec[root]) {
+			h.vec[root], h.vec[left] = h.vec[left], h.vec[root]
+			root = left
+			continue
+		}
+		var min int
+		if h.vec[left] < h.vec[right] {
+			min = left
+		} else {
+			min = right
+		}
+		if h.vec[root] > h.vec[min] {
+			h.vec[root], h.vec[min] = h.vec[min], h.vec[root]
+			root = min
+			continue
+		}
+
+		// right place
+		break
+	}
+
+	return popped, nil
 }
