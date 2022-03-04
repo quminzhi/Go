@@ -1,3 +1,6 @@
+/*
+Package heap implements min heap and common methods associated with it.
+*/
 package heap
 
 import (
@@ -11,6 +14,9 @@ type Heap struct {
 	vec  []int
 }
 
+/* 
+InitHeap inits a heap from a vector.
+*/
 func (h *Heap) InitHeap(_vec []int) error {
 	h.size = len(_vec)
 	h.vec = _vec
