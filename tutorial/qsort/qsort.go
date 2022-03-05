@@ -1,22 +1,25 @@
 package qsort
 
 func qsort(arr []int, left int, right int) {
-	if left < right {
-		var i int = left
-		var j int = right
-		var pivot int = arr[left]
-		for i < j {
-			for i < right && arr[i] < pivot {
-				i++
-			}
-			for j > left && arr[j] >= pivot {
-				j--
-			}
-			if i < j {
-				arr[i], arr[j] = arr[j], arr[i]
-			}
+	var i int = left
+	var j int = right
+	var pivot int = arr[left]
+	for i < j {
+		for i < j && arr[j] >= pivot {
+			j--
 		}
-		qsort(arr, left, j)
-		qsort(arr, j+1, right)
+		arr[i] = arr[j]
+		for i < j && arr[i] < pivot {
+			i++
+		}
+		arr[j] = arr[i]
+	}
+	arr[i] = pivot
+
+	if left < i-1 {
+		qsort(arr, left, i-1)
+	}
+	if i+1 < right {
+		qsort(arr, i+1, right)
 	}
 }

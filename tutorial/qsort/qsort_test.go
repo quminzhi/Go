@@ -1,7 +1,6 @@
 package qsort
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -11,13 +10,30 @@ func TestQuickSort(t *testing.T) {
 	qsort(arr, 0, len(arr)-1)
 
 	for i := 0; i < len(arr); i++ {
-		fmt.Printf("%d ", arr[i])
-	}
-	fmt.Println()
-
-	for i := 0; i < len(arr); i++ {
 		if arr[i] != expected[i] {
 			t.Fatalf("index %d: expected to be %d, but got %d", i, expected[i], arr[i])
+		}
+	}
+
+	arr2 := []int{5, 1, 1, 2, 0, 0}
+	expected2 := []int{0, 0, 1, 1, 2, 5}
+	qsort(arr2, 0, len(arr2)-1)
+
+	for i := 0; i < len(arr2); i++ {
+		if arr2[i] != expected2[i] {
+			t.Fatalf("index %d: expected to be %d, but got %d", i, expected2[i], arr2[i])
+		}
+	}
+
+	arr3 := make([]int, 50000)
+	expected3 := make([]int, 50000)
+	for i := 0; i < 50000; i++ {
+		arr3[i], expected3[i] = i, i
+	}
+	qsort(arr3, 0, len(arr3)-1)
+	for i := 0; i < len(arr2); i++ {
+		if arr3[i] != expected3[i] {
+			t.Fatalf("index %d: expected to be %d, but got %d", i, expected2[i], arr2[i])
 		}
 	}
 }
