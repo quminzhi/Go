@@ -3,7 +3,11 @@ package qsort
 func qsort(arr []int, left int, right int) {
 	var i int = left
 	var j int = right
-	var pivot int = arr[left]
+	// select middle one as a pivot
+	var chosen int = left + ((right - left) >> 1)
+	var pivot int = arr[chosen]
+	// exchange it to the first element
+	arr[left], arr[chosen] = arr[chosen], arr[left]
 	for i < j {
 		for i < j && arr[j] >= pivot {
 			j--

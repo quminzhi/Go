@@ -25,9 +25,10 @@ func TestQuickSort(t *testing.T) {
 		}
 	}
 
-	arr3 := make([]int, 50000)
-	expected3 := make([]int, 50000)
-	for i := 0; i < 50000; i++ {
+	var size int = 50000000
+	arr3 := make([]int, size)
+	expected3 := make([]int, size)
+	for i := 0; i < size; i++ {
 		arr3[i], expected3[i] = i, i
 	}
 	qsort(arr3, 0, len(arr3)-1)
